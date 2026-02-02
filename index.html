@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- INDIANA ATWOOD -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Name of browser and necesary .css file -->
+    <title>Cheesecake Order Form</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Specifies the title font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Spray+Paint&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
+
+    <script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"/>
+    </script>
+</head>
+
+<body>
+    <div class="body-half-1">
+        <!-- Displays the title and a cheesecake image -->
+        <h1>Cheesecake Order Form</h1>
+        <img src="https://www.jocooks.com/wp-content/uploads/2018/11/cheesecake-1-22-1229x1536.jpg"
+        alt="Cheesecake image" width="400" height="400">
+    </div>
+
+    <div class="order-form" id="orderForm">
+        <!-- Displays the topping drop-down menu & radio buttons -->
+        <!-- Menu & buttons placed in a container so they can sit side-by-side -->
+        <h2>Quantity Topping</h2>
+        <div class="side-by-side-container">
+            <div class="drop-down-menu">
+                <select name="quantity" id="quantity">
+                    <option value="1">1</option>
+                    <option value="3">3</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+
+            <div class="radio-buttons">
+                <label><input type="radio" name="toppings"
+                    value="Plain" checked> Plain</label><br>
+                <label><input type="radio" name="toppings"
+                    value="Cherry"> Cherry</label><br>
+                <label><input type="radio" name="toppings"
+                    value="Chocolate"> Chocolate</label>
+            </div>
+        </div>
+
+        <!-- Displays the message box for special instructions & order button -->
+        <p>Notes:</p>
+        <textarea id="message" rows="5" cols="50" 
+            placeholder="Enter any special instructions here."></textarea><br>
+        
+        <button id="orderButton">Order</button>
+    </div>
+
+    <div id="orderSummary"></div>
+
+    <!-- Displays month selector drop-down list -->
+    <!-- Displays bulleted list of total order last month -->
+    <h2>
+        Orders for
+        <span class="month-widget">
+            <span id="selected-month">Jan</span>
+            <ul class="month-options">
+                <li>Jan</li>
+                <li>Feb</li>
+                <li>Mar</li>
+                <li>Apr</li>
+                <li>May</li>
+                <li>Jun</li>
+                <li>Jul</li>
+                <li>Aug</li>
+                <li>Sept</li>
+                <li>Oct</li>
+                <li>Nov</li>
+                <li>Dec</li>
+            </ul>
+        </span>
+    </h2>
+
+    <ul>
+        <li>11 cherry</li>
+        <li>17 chocolate</li>
+        <li>31 plain</li>
+    </ul>
+</body>
+
+<script>
+    // When the Order button is clicked, run this code
+    $("#orderButton").click(function(event) {
+        event.preventDefault();
+
+        // get data from each element
+        var quantity = $("#quantity").val();
+        var topping = $("input[name='toppings']:checked").val();
+        var notes = $("#message").val();
+
+        // if the textArea is empty, summary says "None"
+        if (notes == "") {
+            notes = "None";
+        }
+
+        // alert if the textArea includes "vegan"
+        if (notes.toLowerCase().includes("vegan")) {
+            alert("Warning: Cheesecakes contain dairy!");
+        }
+
+        // remove orderForm and replace with orderSummary
+        $("#orderForm").remove();
+        $("#orderSummary").append(`
+            <h2>Thank you! Your order has been placed.</h2>
+            <pre><p><b>     Quantity:</b> ${quantity}</p></pre>
+            <pre><p><b>     Topping:</b> ${topping}</p></pre>
+            <pre><p><b>     Notes:</b> ${notes}</p></pre>
+        `);
+    });
+
+    // functionality to select a month, adding even listeners for each
+    const monthItems = document.querySelectorAll(".month-options li");
+    const selectedMonth = document.getElementById("selected-month");
+
+    monthItems.forEach(month => {
+        month.addEventListener("click", () => {
+        selectedMonth.textContent = month.textContent;
+        });
+    });
+
+</script>
+
+</html>

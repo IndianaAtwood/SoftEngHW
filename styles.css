@@ -1,0 +1,89 @@
+/* INDIANA ATWOOD */
+
+.side-by-side-container {
+    display: flex;
+}
+
+.drop-down-menu,
+.radio-buttons {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 30px;
+}
+
+.body-half-1 {
+    background-color: #d37b00;
+    width: fit-content;
+    padding: 10vh;
+}
+
+.order-form, body {
+    background-color: #fb9292;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    flex-direction: column;
+}
+
+h1 {
+  font-family: "Rubik Spray Paint", system-ui;
+  font-weight: 300;
+  font-style: normal;
+  color: #ffffff;
+}
+
+h2 {
+  font-family: "Jersey 10", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.month-widget {
+  position: relative;
+  display: inline-block;
+}
+
+#selected-month {
+  padding: 2px 6px;
+  border: 1px solid #000000;   /* box outline */
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#selected-month:hover {
+  background-color: #e7f1ff;  /* light hover fill */
+}
+
+.month-options {
+  display: none;
+  position: absolute;
+  top: 1.8em;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 60px;
+  z-index: 10;
+
+  /* features added for scrolling function */
+  max-height: 120px; 
+  overflow-y: auto;
+  font-size: 14px;
+}
+
+.month-options li {
+  padding: 6px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.month-options li:hover {
+  background-color: #f0f0f0;
+}
+
+.month-widget:hover .month-options {
+  display: block;
+}
