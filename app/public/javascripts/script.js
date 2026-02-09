@@ -33,8 +33,25 @@ $("#orderButton").click(function(event) {
 const monthItems = document.querySelectorAll(".month-options li");
 const selectedMonth = document.getElementById("selected-month");
 
+// for each month in list, add an click listener
 monthItems.forEach(month => {
     month.addEventListener("click", () => {
-    selectedMonth.textContent = month.textContent;
+        // take the month title and make selectedMonth reflect it
+        const monthName = month.textContent;
+        selectedMonth.textContent = monthName;
+
+        // post the JSON passed from orders.js
+        $.post('/orders', {month: monthName}, function(data) {
+            // create html code to replace monthOrderSummary html
+            let html = '<ul>';
+
+            data.forEach(order => {
+                html += `<li>${order.quantity} ${order.topping.toLowerCase()}</li>`;
+            });
+
+            html += '</ul>';
+
+            $("#monthOrderSummary").html(html);
+        });
     });
 });
