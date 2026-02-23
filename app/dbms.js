@@ -12,7 +12,7 @@ exports.version = '0.0.1';
 var mysql = require('mysql'),
     async = require('async');
 
-var host = "10.6.2.7";    //pdx0mysql00 IP address
+var host = "pdx0mysql00.campus.up.edu";    //pdx0mysql00 IP address
 var database = "atwoodi26";  //database name
 var user = "atwoodi26";         //username (change to match your db)
 var password = "AVNQUHCILGZ";  //password (change to match your db, yes THIS IS VERY POOR PRACTICE)

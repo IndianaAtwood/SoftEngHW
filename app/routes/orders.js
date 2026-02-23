@@ -2,7 +2,8 @@
 
 const express = require('express');
 const router = express.Router();
-const db = require('./dbms'); // Where DB lives
+const db = require('../dbms'); // Where DB lives
+const mysql = require('mysql');
 
 // Helper to turn "Jan" into 1, "Feb" into 2, etc.
 const monthMap = {
@@ -18,16 +19,21 @@ router.post('/', (req, res) => {
 
     // SQL Query: Joins orders with toppings to get the name/price
     const sql = `
-        SELECT t.name AS topping, SUM(o.quantity) AS total_quantity
-        FROM orders o
-        JOIN toppings t ON o.t_id = t.t_id
-        WHERE o.month = ? AND o.year = 2023
-	GROUP BY t.name;
+        SELECT
+	    t.name AS name,
+	    COALESCE(SUM(o.quantity), 0) AS quantity
+	FROM toppings t
+	LEFT JOIN orders o
+	    ON t.t_id = o.t_id
+	    AND o.month = ${monthInt}
+	    AND o.year = 2023
+	GROUP BY t.name
+	ORDER BY t.name;
     `;
 
-    db.query(sql, [monthInt], (err, results) => {
+    db.dbquery(sql, (err, results) => {
         if (err) {
-            console.error("Database error:", err);
+            console.error(err);
             return res.status(500).json({ error: "Internal Server Error" });
         }
 

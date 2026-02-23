@@ -27,6 +27,12 @@ $("#orderButton").click(function(event) {
         <pre><p><b>     Topping:</b> ${topping}</p></pre>
         <pre><p><b>     Notes:</b> ${notes}</p></pre>
     `);
+
+    $.post("/neworder", {
+	 quantity: quantity,
+	 topping: topping,
+	 notes: notes
+    });
 });
 
 // functionality to select a month, adding even listeners for each
@@ -46,12 +52,13 @@ monthItems.forEach(month => {
             let html = '<ul>';
 
             data.forEach(order => {
-                html += `<li>${order.quantity} ${order.topping.toLowerCase()}</li>`;
+                html += `<li>${order.quantity} ${order.name.toLowerCase()}</li>`;
             });
 
             html += '</ul>';
 
             $("#monthOrderSummary").html(html);
+		$("#selectedMonth").click();
         });
     });
 });
