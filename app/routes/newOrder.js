@@ -11,6 +11,7 @@ router.post('/', (req, res) => {
 	const month = 1;
 	const year = 2023;
 
+	// SQL that posts new order to database
 	const sql = `
 		INSERT INTO orders (t_id, quantity, notes, month, year)
 		VALUES (${topping}, ${quantity}, '${notes}', ${month}, ${year})

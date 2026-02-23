@@ -58,7 +58,6 @@ monthItems.forEach(month => {
             html += '</ul>';
 
             $("#monthOrderSummary").html(html);
-		$("#selectedMonth").click();
         });
     });
 });

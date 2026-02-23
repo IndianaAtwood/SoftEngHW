@@ -19,16 +19,15 @@ router.post('/', (req, res) => {
 
     // SQL Query: Joins orders with toppings to get the name/price
     const sql = `
-        SELECT
-	    t.name AS name,
-	    COALESCE(SUM(o.quantity), 0) AS quantity
-	FROM toppings t
-	LEFT JOIN orders o
-	    ON t.t_id = o.t_id
-	    AND o.month = ${monthInt}
-	    AND o.year = 2023
-	GROUP BY t.name
-	ORDER BY t.name;
+        SELECT t.name AS name,
+	        COALESCE(SUM(o.quantity), 0) AS quantity
+	        FROM toppings t
+	    LEFT JOIN orders o
+	        ON t.t_id = o.t_id
+	        AND o.month = ${monthInt}
+	        AND o.year = 2023
+	    GROUP BY t.name
+	    ORDER BY t.name;
     `;
 
     db.dbquery(sql, (err, results) => {
